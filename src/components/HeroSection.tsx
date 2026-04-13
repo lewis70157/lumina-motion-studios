@@ -1,59 +1,63 @@
-import { motion } from "framer-motion";
-import heroImg from "@/assets/hero-abstract.jpg";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
-  const titleWords = ["We", "Craft", "Digital", "Experiences"];
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <motion.img
-          src={heroImg}
-          alt="Abstract 3D render"
+    <section ref={ref} id="hero" className="relative h-[120vh] flex items-center justify-center overflow-hidden">
+      {/* Parallax background */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+        <img
+          src={heroBg}
+          alt=""
           width={1920}
           height={1080}
-          className="w-full h-full object-cover opacity-40"
-          initial={{ scale: 1.2 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full h-full object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background" />
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background" />
+      </motion.div>
 
       {/* Floating orbs */}
       <motion.div
-        className="absolute w-72 h-72 rounded-full bg-primary/10 blur-[100px]"
-        animate={{ x: [0, 50, -30, 0], y: [0, -40, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        style={{ top: "20%", left: "15%" }}
+        className="absolute w-80 h-80 rounded-full bg-primary/8 blur-[120px]"
+        animate={{ x: [0, 60, -40, 0], y: [0, -50, 30, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+        style={{ top: "15%", left: "10%" }}
       />
       <motion.div
-        className="absolute w-96 h-96 rounded-full bg-secondary/10 blur-[120px]"
-        animate={{ x: [0, -40, 30, 0], y: [0, 30, -50, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        style={{ bottom: "10%", right: "10%" }}
+        className="absolute w-[500px] h-[500px] rounded-full bg-secondary/6 blur-[150px]"
+        animate={{ x: [0, -50, 40, 0], y: [0, 40, -60, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        style={{ bottom: "5%", right: "5%" }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+      {/* Content with parallax */}
+      <motion.div className="relative z-10 text-center px-6 max-w-5xl mx-auto" style={{ y: textY, opacity }}>
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="font-display text-sm tracking-[0.4em] uppercase text-primary mb-8"
+          transition={{ delay: 0.2, duration: 0.7 }}
+          className="flex items-center justify-center gap-3 mb-10"
         >
-          Creative Studio — Animation & CGI
-        </motion.p>
+          <span className="w-8 h-px bg-primary" />
+          <span className="font-display text-[10px] tracking-[0.5em] uppercase text-primary">Creative Studio</span>
+          <span className="w-8 h-px bg-primary" />
+        </motion.div>
 
-        <h1 className="font-display font-bold leading-[0.9] mb-8">
-          {titleWords.map((word, i) => (
+        <h1 className="font-display font-bold leading-[0.88] mb-6">
+          {["We", "Craft", "Digital", "Experiences"].map((word, i) => (
             <motion.span
               key={word}
-              initial={{ opacity: 0, y: 80, rotateX: 40 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ delay: 0.5 + i * 0.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className={`inline-block mr-4 md:mr-6 text-5xl sm:text-7xl md:text-8xl lg:text-9xl ${
+              initial={{ opacity: 0, y: 100, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.4 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className={`inline-block mr-3 md:mr-5 text-4xl sm:text-6xl md:text-7xl lg:text-8xl ${
                 word === "Digital" ? "text-gradient" : "text-foreground"
               }`}
             >
@@ -65,49 +69,48 @@ const HeroSection = () => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 1 }}
-          className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 font-body"
+          transition={{ delay: 1.1, duration: 0.8 }}
+          className="text-muted-foreground text-sm md:text-base max-w-lg mx-auto mb-8 font-body leading-relaxed"
         >
-          We blend artistry and technology to create award-winning 2D animations,
-          3D CGI, product commercials, and AI-driven visuals.
+          Award-winning 2D animation, 3D CGI, product commercials & AI visuals.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 1.4, duration: 0.7 }}
+          className="flex items-center justify-center gap-4"
         >
           <button
-            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-4 rounded-full bg-primary text-primary-foreground font-display text-sm tracking-widest uppercase hover:glow-primary transition-all duration-500"
+            onClick={() => document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" })}
+            className="px-6 py-3 rounded-full bg-primary text-primary-foreground font-display text-xs tracking-[0.2em] uppercase hover:glow-primary transition-all duration-500"
           >
-            View Our Work
+            Explore Work
           </button>
           <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-4 rounded-full border border-border text-foreground font-display text-sm tracking-widest uppercase hover:border-primary hover:text-primary transition-all duration-300"
+            className="px-6 py-3 rounded-full border border-border/60 text-foreground font-display text-xs tracking-[0.2em] uppercase hover:border-primary hover:text-primary transition-all duration-300"
           >
-            Get In Touch
+            Contact
           </button>
         </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          animate={{ opacity: 0.6 }}
+          transition={{ delay: 2 }}
+          className="mt-20"
         >
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-5 h-8 rounded-full border border-muted-foreground/40 flex items-start justify-center p-1"
+            className="w-4 h-7 rounded-full border border-muted-foreground/30 flex items-start justify-center p-1 mx-auto"
           >
-            <motion.div className="w-1 h-2 rounded-full bg-primary" />
+            <motion.div className="w-0.5 h-1.5 rounded-full bg-primary" />
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
