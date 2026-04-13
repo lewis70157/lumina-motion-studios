@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = ["Work", "Services", "About", "Contact"];
+const navLinks = [
+  { label: "Work", id: "showcase" },
+  { label: "Services", id: "services" },
+  { label: "About", id: "about" },
+  { label: "Contact", id: "contact" },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
