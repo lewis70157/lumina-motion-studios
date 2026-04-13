@@ -31,11 +31,11 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-8">
         {navLinks.map((link) => (
           <button
-            key={link}
-            onClick={() => scrollTo(link)}
+            key={link.id}
+            onClick={() => scrollTo(link.id)}
             className="relative font-display text-sm tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 group"
           >
-            {link}
+            {link.label}
             <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
           </button>
         ))}
@@ -65,14 +65,14 @@ const Navbar = () => {
           >
             {navLinks.map((link, i) => (
               <motion.button
-                key={link}
+                key={link.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                onClick={() => scrollTo(link)}
+                onClick={() => scrollTo(link.id)}
                 className="font-display text-3xl font-bold tracking-tight text-foreground"
               >
-                {link}
+                {link.label}
               </motion.button>
             ))}
           </motion.div>
