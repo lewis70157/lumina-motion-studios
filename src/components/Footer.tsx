@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
@@ -87,10 +88,15 @@ const Footer = () => {
             <div>
               <h4 className="font-display text-[10px] tracking-[0.4em] uppercase text-muted-foreground mb-6">Studio</h4>
               <ul className="space-y-3">
-                {["Gallery", "About", "Services", "Showreel"].map((link) => (
-                  <li key={link}>
-                    <a href={`#${link.toLowerCase()}`} className="text-foreground/70 hover:text-primary text-sm transition-colors duration-300">
-                      {link}
+                {[
+                  { label: "Gallery", href: "/#showcase" },
+                  { label: "About", href: "/#about" },
+                  { label: "Services", href: "/#services" },
+                  { label: "Showreel", href: "/#showreel" },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="text-foreground/70 hover:text-primary text-sm transition-colors duration-300">
+                      {link.label}
                     </a>
                   </li>
                 ))}
@@ -99,11 +105,16 @@ const Footer = () => {
             <div>
               <h4 className="font-display text-[10px] tracking-[0.4em] uppercase text-muted-foreground mb-6">Support</h4>
               <ul className="space-y-3">
-                {["FAQ", "Terms", "Privacy", "Careers"].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-foreground/70 hover:text-primary text-sm transition-colors duration-300">
-                      {link}
-                    </a>
+                {[
+                  { label: "FAQ", to: "/faq" },
+                  { label: "Terms", to: "/terms" },
+                  { label: "Privacy", to: "/privacy" },
+                  { label: "Careers", to: "/careers" },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <Link to={link.to} className="text-foreground/70 hover:text-primary text-sm transition-colors duration-300">
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
