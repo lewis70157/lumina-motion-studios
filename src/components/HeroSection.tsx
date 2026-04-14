@@ -1,43 +1,30 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
 
 const HeroSection = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <section ref={ref} id="hero" className="relative h-[120vh] flex items-center justify-center overflow-hidden">
-      {/* Parallax background */}
-      <motion.div className="absolute inset-0" style={{ y: bgY }}>
-        <img
-          src={heroBg}
-          alt=""
-          width={1920}
-          height={1080}
-          className="w-full h-full object-cover opacity-50"
+    <section ref={ref} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Video background */}
+      <motion.div className="absolute inset-0" style={{ scale }}>
+        <video
+          src={heroVideo.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
       </motion.div>
 
-      {/* Floating orbs */}
-      <motion.div
-        className="absolute w-80 h-80 rounded-full bg-primary/8 blur-[120px]"
-        animate={{ x: [0, 60, -40, 0], y: [0, -50, 30, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-        style={{ top: "15%", left: "10%" }}
-      />
-      <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full bg-secondary/6 blur-[150px]"
-        animate={{ x: [0, -50, 40, 0], y: [0, 40, -60, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-        style={{ bottom: "5%", right: "5%" }}
-      />
-
-      {/* Content with parallax */}
+      {/* Content */}
       <motion.div className="relative z-10 text-center px-6 max-w-5xl mx-auto" style={{ y: textY, opacity }}>
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -82,10 +69,10 @@ const HeroSection = () => {
           className="flex items-center justify-center gap-4"
         >
           <button
-            onClick={() => document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("showreel")?.scrollIntoView({ behavior: "smooth" })}
             className="px-6 py-3 rounded-full bg-primary text-primary-foreground font-display text-xs tracking-[0.2em] uppercase hover:glow-primary transition-all duration-500"
           >
-            Explore Work
+            View Showreel
           </button>
           <button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
@@ -100,7 +87,7 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.6 }}
           transition={{ delay: 2 }}
-          className="mt-20"
+          className="mt-16"
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}
