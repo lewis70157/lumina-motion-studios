@@ -34,6 +34,8 @@ const Index = () => {
   return (
     <div className="bg-background min-h-screen noise-bg">
       <CustomCursor />
+      <ScrollToTop />
+      <WhatsAppButton />
       <Navbar />
       <HeroSection />
       <MarqueeStrip />
