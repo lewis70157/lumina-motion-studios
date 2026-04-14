@@ -11,6 +11,8 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
+import ScrollToTop from "@/components/ScrollToTop";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   useEffect(() => {
@@ -32,6 +34,8 @@ const Index = () => {
   return (
     <div className="bg-background min-h-screen noise-bg">
       <CustomCursor />
+      <ScrollToTop />
+      <WhatsAppButton />
       <Navbar />
       <HeroSection />
       <MarqueeStrip />
