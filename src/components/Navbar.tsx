@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Work", id: "showcase" },
@@ -106,6 +106,19 @@ const Navbar = () => {
             ))}
 
             <div className="w-px h-5 bg-border/40 mx-3" />
+
+            <Link
+              to="/blog"
+              className="px-3 py-2 font-display text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              Blog
+            </Link>
+            <Link
+              to="/pricing"
+              className="px-3 py-2 font-display text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              Pricing
+            </Link>
 
             <motion.button
               onClick={() => scrollTo("contact")}

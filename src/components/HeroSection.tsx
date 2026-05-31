@@ -1,6 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, Suspense, lazy } from "react";
 import heroVideo from "@/assets/hero-video.mp4.asset.json";
+
+const Hero3D = lazy(() => import("@/components/Hero3D"));
 
 const HeroSection = () => {
   const ref = useRef(null);
@@ -19,9 +21,15 @@ const HeroSection = () => {
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-25"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
+        {/* 3D layer */}
+        <div className="absolute inset-0">
+          <Suspense fallback={null}>
+            <Hero3D />
+          </Suspense>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background pointer-events-none" />
       </motion.div>
 
       {/* Content */}

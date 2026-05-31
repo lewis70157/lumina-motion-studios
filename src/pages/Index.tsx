@@ -3,7 +3,9 @@ import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
+import ClientLogos from "@/components/ClientLogos";
 import ShowreelSection from "@/components/ShowreelSection";
+import AwardsSection from "@/components/AwardsSection";
 import ShowcaseSection from "@/components/ShowcaseSection";
 import ProcessSection from "@/components/ProcessSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -13,6 +15,8 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollToTop from "@/components/ScrollToTop";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Preloader from "@/components/Preloader";
+import PageTransition from "@/components/PageTransition";
 
 const Index = () => {
   useEffect(() => {
@@ -32,14 +36,18 @@ const Index = () => {
   }, []);
 
   return (
+    <PageTransition>
     <div className="bg-background min-h-screen noise-bg">
+      <Preloader />
       <CustomCursor />
       <ScrollToTop />
       <WhatsAppButton />
       <Navbar />
       <HeroSection />
       <MarqueeStrip />
+      <ClientLogos />
       <ShowreelSection />
+      <AwardsSection />
       <ShowcaseSection />
       <ProcessSection />
       <ServicesSection />
@@ -47,6 +55,7 @@ const Index = () => {
       <ContactSection />
       <Footer />
     </div>
+    </PageTransition>
   );
 };
 
