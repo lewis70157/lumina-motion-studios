@@ -92,7 +92,7 @@ const Footer = () => {
                   { label: "Gallery", href: "/#showcase" },
                   { label: "About", href: "/#about" },
                   { label: "Services", href: "/#services" },
-                  { label: "Showreel", href: "/#showreel" },
+                  { label: "Awards", href: "/#awards" },
                 ].map((link) => (
                   <li key={link.label}>
                     <a href={link.href} className="text-foreground/70 hover:text-primary text-sm transition-colors duration-300">
@@ -107,6 +107,8 @@ const Footer = () => {
               <ul className="space-y-3">
                 {[
                   { label: "FAQ", to: "/faq" },
+                  { label: "Blog", to: "/blog" },
+                  { label: "Pricing", to: "/pricing" },
                   { label: "Terms", to: "/terms" },
                   { label: "Privacy", to: "/privacy" },
                   { label: "Careers", to: "/careers" },
